@@ -9,4 +9,5 @@
 #### frontend: ReactJS and Redux + Apollo.
 
 ## How to run
-### install packages ``` npm install or yarn install ```
+#### install packages ``` npm install or yarn install ```
+#### then run ``` npm run start:dev or yarn run start:dev ```

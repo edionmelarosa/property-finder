@@ -1,27 +1,16 @@
 const express = require('express');
-const logger = require('morgan');
 const bodyParser = require('body-parser');
+const graphqlHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
+const schema = require('./src/schema.js');
 
-// Set up the express app
 const app = express();
 
-const User = require('./server/models').User;
-
-let users = User.findAll({
-  attributes: ['firstName', 'lastName']
-});
-console.log(users)
-
-// Log requests to the console.
-app.use(logger('dev'));
-
-// Parse incoming requests data (https://github.com/expressjs/body-parser)
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Setup a default catch-all route that sends back a welcome message in JSON format.
-app.get('*', (req, res) => res.status(200).send({
-  message: users,
+app.use('/search', graphqlHTTP({
+  schema: schema,
+  graphiql: true //set to false if you don't want graphiql enabled
 }));
+
+app.listen(4000);
 
 module.exports = app;
